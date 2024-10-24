@@ -1,0 +1,17 @@
+name: stepping_stones
+description: Manage different commands in dart
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.5.3
+
+# Add regular dependencies here.
+dependencies:
+  args: ^2.6.0
+  collection: ^1.18.0
+  dotenv: ^4.2.0
+
+dev_dependencies:
+  test: ^1.25.8
+  very_good_analysis: ^6.0.0
