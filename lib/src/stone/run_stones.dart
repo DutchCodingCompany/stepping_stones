@@ -50,6 +50,8 @@ Future<void> runSteppingStones(List<Stone> stones, List<String> args) async {
 
     await _runStep(stone, context);
   }
+
+  //TODO(Guldem): Add version check warning
 }
 
 Future<void> _runStep(Stone stone, StoneContext context) async {
@@ -69,8 +71,15 @@ ArgParser _createParser(List<Stone> stones) {
     ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output')
     ..addFlag('help', abbr: 'h', help: 'Print this help description');
 
+  final addedCommands = <String>{};
   for (final step in stones) {
-    parser.addCommand(step.toString(), step.parser);
+    final name = step.toString();
+    if (addedCommands.contains(name)) {
+      throw ArgumentError('Duplicate stone command name: $name');
+    } else {
+      parser.addCommand(name, step.parser);
+      addedCommands.add(name);
+    }
   }
   return parser;
 }

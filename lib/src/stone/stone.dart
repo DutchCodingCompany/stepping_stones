@@ -96,12 +96,18 @@ abstract class Stone {
   /// await run('dart format');
   /// ```
   FutureOr<void> run(String command) async {
+    if (_context.isVerbose) {
+      log('Environments:');
+      for (final entry in envs.entries) {
+        log('${entry.key}: ${entry.value}');
+      }
+    }
     log('Running command: $command');
-    final parts = command.split(' ');
     final result = await Process.start(
-      parts.first,
-      parts.sublist(1),
+      'bash',
+      ['-c', command],
       runInShell: true,
+      environment: envs,
     );
     await stdout.addStream(result.stdout);
     await stderr.addStream(result.stderr);
